@@ -1,9 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const dotenv = require('dotenv');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const app = express();
+dotenv.config()
+const PORT = process.env.port || 3000;
 
 app.use(express.static(__dirname + '/public')); // Serve static files from 'public' folder
 app.set('view engine', 'ejs');
@@ -140,7 +143,6 @@ app.post('/download', async (req, res) => {
     });
 });
 
-const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
