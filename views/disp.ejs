@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blackboard</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        span {
+            font-size: 14px;
+            color: #e678a2;
+        }
+
+        .heading {
+            text-align: center;
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .blackboard {
+            background: #252525;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+            border: 5px solid #444;
+            width: 80%;
+            max-width: 1200px;
+            height: 70%;
+            border-radius: 15px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blackboard::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png'); /* Subtle chalkboard texture */
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+        }
+
+        .blackboard-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .blackboard-text {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            white-space: pre-wrap; /* preserves formatting */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .blackboard {
+                width: 90%;
+                height: 60%;
+            }
+
+            .blackboard-text {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blackboard {
+                width: 95%;
+                height: 50%;
+            }
+
+            .blackboard-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heading">
+        <p>Welcome to my Blackboard!</p>
+        <span>Here is your Converted data of bin file You just uploaded</span>
+    </div>
+
+    <div class="blackboard">
+        <div class="blackboard-content">
+            <div class="blackboard-text">
+                <h4><%=data%></h4>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

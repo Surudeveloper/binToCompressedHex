@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish File Upload</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            overflow: hidden;
+        }
+
+        .background-text {
+            /* position: absolute; */
+            position: relative;
+            font-size: 25px;
+            opacity: 0.1;
+            transform: rotate(0deg);
+            top: 10%;
+            left: -10%;
+            z-index: 0;
+        }
+
+        .upload-container {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: #6a11cb;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2575fc;
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .uploaded-file {
+            margin-top: 10px;
+            color: #eee;
+        }
+
+        .submit-btn {
+            background-color: #43e97b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #38d96f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-text">Upload Your Files Easily</div>
+    <form action="/download" method="post" enctype="multipart/form-data">
+
+        <div class="upload-container">
+            <h2>Upload Your Bin File</h2>
+            <div class="upload-btn-wrapper">
+                <button class="btn">Choose File</button>
+                <input type="file" id="upldFile" name="upldFile">
+            </div>
+            <p class="uploaded-file" id="fileName">No file chosen</p>
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </form>
+
+    <!-- Loader -->
+    <div class="loader" id="loader"></div>
+
+    <script>
+        const fileInput = document.getElementById('upldFile');
+        const fileNameDisplay = document.getElementById('fileName');
+
+        fileInput.addEventListener('change', function () {
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : "No file chosen";
+            fileNameDisplay.textContent = fileName;
+        });
+    </script>
+
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        // Show loader when button is clicked
+        document.getElementById('loader').style.display = 'block';
+
+        // Make an AJAX request to the Node.js /download route
+        fetch('/download')
+            .then(response => {
+                return response.text();  // Assuming the response is HTML
+            })
+            .then(data => {
+                // Hide loader when response is received
+                document.getElementById('loader').style.display = 'none';
+
+                // Display the response (HTML content)
+                document.body.innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loader').style.display = 'none'; // Hide loader on error
+            });
+    });
+</script>
+
+
+</body>
+
+</html>
