@@ -9,7 +9,10 @@ dotenv.config()
 const PORT = process.env.port || 3000;
 
 app.use(express.static(__dirname + '/public')); // Serve static files from 'public' folder
+// app.use(express.static(path.join(__dirname, 'public')));
+
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(fileUpload());
 app.use(bodyParser.json());
